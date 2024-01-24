@@ -1,5 +1,5 @@
 FROM phusion/baseimage:focal-1.1.0
-MAINTAINER Matthew Rayner <hello@rayner.io>
+# MAINTAINER Matthew Rayner <hello@rayner.io>
 ENV REFRESHED_AT 2021-09-07
 
 # based on dgraziotin/lamp
@@ -54,6 +54,13 @@ ADD supporting_files/supervisord.conf /etc/supervisor/supervisord.conf
 # Remove pre-installed database
 RUN rm -rf /var/lib/mysql
 
+# ENV MYSQL_PASS:-$(pwgen -s 12 1)
+ENV MYSQL_ADMIN_PASS "${MYSQL_ADMIN_PASS}"
+ENV MYSQL_USER_NAME "${MYSQL_USER_NAME}"
+ENV MYSQL_USER_PASS "${MYSQL_USER_PASS}"
+ENV MYSQL_USER_DB "${MYSQL_USER_DB}"
+# ENV MYSQL_PASS:-password
+
 # Add MySQL utils
 ADD supporting_files/create_mysql_users.sh /create_mysql_users.sh
 
@@ -69,7 +76,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer
 
-ENV MYSQL_PASS:-$(pwgen -s 12 1)
 # config to enable .htaccess
 ADD supporting_files/apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite

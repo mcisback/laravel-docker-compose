@@ -2,56 +2,68 @@ version: "2"
 
 services:
 
-  web1804-php7:
+  laravel-php74:
     build:
       context: .
-      dockerfile: ./1804/Dockerfile
+      dockerfile: ./dockerfiles/Dockerfile
       args:
         - PHP_VERSION=7.4
     environment:
       - MYSQL_ADMIN_PASS=password
-    ports:
-      - "3000:80"
-      - "3001:3306"
-    tmpfs:
-      - /var/lib/mysql
-
-  web1804-php8:
-    build:
-      context: .
-      dockerfile: ./1804/Dockerfile
-      args:
-        - PHP_VERSION=8.0
-    environment:
-      - MYSQL_ADMIN_PASS=password
-    ports:
-      - "3020:80"
-      - "3021:3306"
-    tmpfs:
-      - /var/lib/mysql
-
-  web2004-php7:
-    build:
-      context: .
-      dockerfile: ./2004/Dockerfile
-      args:
-        - PHP_VERSION=7.4
-    environment:
-      - MYSQL_ADMIN_PASS=password
+      - MYSQL_USER_NAME=laravel
+      - MYSQL_USER_PASS=password
+      - MYSQL_USER_DB=laravelapp
     ports:
       - "3030:80"
       - "3031:3306"
     tmpfs:
       - /var/lib/mysql
 
-  web2004-php8:
+  laravel-php80:
     build:
       context: .
-      dockerfile: ./2004/Dockerfile
+      dockerfile: ./dockerfiles/Dockerfile
       args:
         - PHP_VERSION=8.0
     environment:
       - MYSQL_ADMIN_PASS=password
+      - MYSQL_USER_NAME=laravel
+      - MYSQL_USER_PASS=password
+      - MYSQL_USER_DB=laravelapp
+    ports:
+      - "3040:80"
+      - "3041:3306"
+    tmpfs:
+      - /var/lib/mysql
+  
+  laravel-php81:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+      args:
+        - PHP_VERSION=8.1
+    environment:
+      - MYSQL_ADMIN_PASS=password
+      - MYSQL_USER_NAME=laravel
+      - MYSQL_USER_PASS=password
+      - MYSQL_USER_DB=laravelapp
+    ports:
+      - "3040:80"
+      - "3041:3306"
+    tmpfs:
+      - /var/lib/mysql
+
+  laravel-php82:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+      args:
+        - PHP_VERSION=8.2
+    environment:
+      - MYSQL_ADMIN_PASS=password
+      - MYSQL_USER_NAME=laravel
+      - MYSQL_USER_PASS=password
+      - MYSQL_USER_DB=laravelapp
     ports:
       - "3040:80"
       - "3041:3306"

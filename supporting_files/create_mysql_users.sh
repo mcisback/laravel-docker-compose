@@ -10,7 +10,12 @@ while [[ RET -ne 0 ]]; do
     RET=$?
 done
 
-PASS=${MYSQL_ADMIN_PASS:-$(pwgen -s 12 1)}
+PASS=$MYSQL_ADMIN_PASS
+
+if [ -z "$MYSQL_ADMIN_PASS" ]; then
+    PASS=${MYSQL_ADMIN_PASS:-$(pwgen -s 12 1)}
+fi
+
 _word=$( [ ${MYSQL_ADMIN_PASS} ] && echo "preset" || echo "random" )
 echo "=> Creating MySQL admin user with ${_word} password"
 
@@ -21,8 +26,8 @@ mysql -uroot -e " GRANT ALL PRIVILEGES ON phpmyadmin.* TO  'pma'@'localhost' IDE
 
 CREATE_MYSQL_USER=false
 
-if [ -n "$CREATE_MYSQL_BASIC_USER_AND_DB" ] || \
-   [ -n "$MYSQL_USER_NAME" ] || \
+# if [ -n "$CREATE_MYSQL_BASIC_USER_AND_DB" ] || \
+if [ -n "$MYSQL_USER_NAME" ] || \
    [ -n "$MYSQL_USER_DB" ] || \
    [ -n "$MYSQL_USER_PASS" ]; then
       CREATE_MYSQL_USER=true
