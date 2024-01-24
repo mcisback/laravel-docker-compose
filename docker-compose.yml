@@ -1,58 +1,6 @@
 version: "2"
 
 services:
-
-  laravel-php74:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/Dockerfile
-      args:
-        - PHP_VERSION=7.4
-    environment:
-      - MYSQL_ADMIN_PASS=password
-      - MYSQL_USER_NAME=laravel
-      - MYSQL_USER_PASS=password
-      - MYSQL_USER_DB=laravelapp
-    ports:
-      - "3030:80"
-      - "3031:3306"
-    tmpfs:
-      - /var/lib/mysql
-
-  laravel-php80:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/Dockerfile
-      args:
-        - PHP_VERSION=8.0
-    environment:
-      - MYSQL_ADMIN_PASS=password
-      - MYSQL_USER_NAME=laravel
-      - MYSQL_USER_PASS=password
-      - MYSQL_USER_DB=laravelapp
-    ports:
-      - "3040:80"
-      - "3041:3306"
-    tmpfs:
-      - /var/lib/mysql
-  
-  laravel-php81:
-    build:
-      context: .
-      dockerfile: ./dockerfiles/Dockerfile
-      args:
-        - PHP_VERSION=8.1
-    environment:
-      - MYSQL_ADMIN_PASS=password
-      - MYSQL_USER_NAME=laravel
-      - MYSQL_USER_PASS=password
-      - MYSQL_USER_DB=laravelapp
-    ports:
-      - "3040:80"
-      - "3041:3306"
-    tmpfs:
-      - /var/lib/mysql
-
   laravel-php82:
     build:
       context: .
@@ -69,3 +17,5 @@ services:
       - "3041:3306"
     tmpfs:
       - /var/lib/mysql
+    volumes:
+      - app:/app
